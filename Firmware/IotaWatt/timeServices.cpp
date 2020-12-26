@@ -53,7 +53,6 @@ uint32_t timeSync(struct serviceBlock* _serviceBlock) {
   static bool started = false;
   static uint32_t prevDiff = 0;
   static IPAddress prevIP;
-  static uint8_t  serverIndex = 0;     
   uint32_t sendMillis = 0;
   uint32_t origin_sec = 0;
   uint32_t origin_frac = 0;
@@ -91,8 +90,7 @@ uint32_t timeSync(struct serviceBlock* _serviceBlock) {
         // Send an SNTP request.
 
   trace(T_timeSync, 31);
-  String serverName("time1.google.com");
-  serverName[4] += (++serverIndex % 4);    
+  String serverName("time.google.com");
   if(WiFi.hostByName(serverName.c_str(), timeServerIP) == 1){    // get a random server from the pool
     trace(T_timeSync, 32);
     ntpPacket packet;
